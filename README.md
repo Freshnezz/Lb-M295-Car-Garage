@@ -1,189 +1,177 @@
-# M295 Abschlussprojekt – Car-Garage (Spring Boot)
+# M295 CarGarage – Backend Projekt mit Spring Boot
 
-## Inhaltsverzeichnis
+## Projektziel und Motivation
 
-1. [Projektbeschreibung](#projektbeschreibung)
-2. [Zielsetzung](#zielsetzung)
-3. [Technologien & Tools](#technologien--tools)
-4. [Projektstruktur](#projektstruktur)
-5. [Installation & Ausführung](#installation--ausführung)
-6. [Zugangsdaten & Datenbank](#zugangsdaten--datenbank)
-7. [Fehlerbehebung & Troubleshooting](#fehlerbehebung--troubleshooting)
-8. [Reflexion & Learnings](#reflexion--learnings)
-9. [GitHub](#github)
+Im Rahmen des Moduls **M295 - Backendentwicklung** habe ich mich bewusst dafür entschieden, nicht mein bestehendes Frontend aus **Modul 294** zu verwenden. Stattdessen wollte ich die Herausforderung annehmen, **ein vollständiges Backend-Projekt von Grund auf selbst zu entwickeln**, ohne mich auf bereits bestehende Strukturen zu verlassen.
+
+Das Ziel war es, ein realistisches, aber technisch gut umsetzbares Backend zu realisieren, das sich um die Verwaltung einer imaginären **Autogarage** kümmert. Dabei sollen CRUD-Funktionen für Fahrzeuge, Serviceeinträge und optional Rechnungen ermöglicht werden – ein Thema, das mich auch persönlich interessiert, da ich mich für Autos, Wartung und Technik begeistere.
 
 ---
 
-## Projektbeschreibung
+## ⚙️ Technologien & Tools
 
-Dieses Backend-Projekt wurde im Rahmen des Moduls M295 an der WISS Zürich im Sommer 2025 umgesetzt. Ziel war es, ein vollständiges Spring Boot Backend mit Docker und MySQL zu bauen, das alle CRUD-Funktionen für eine fiktive Car-Garage verwaltet. Es handelt sich um mein Abschlussprojekt in diesem Modul.
-
-Das Projekt enthält zwei Haupt-Entities: `Car` und `ServiceEntry`. Es wurden Repositories, Controller und REST-Endpunkte erstellt, die alle mit Insomnia testbar sind.
-
----
-
-## Zielsetzung
-
-Ich wollte mit diesem Projekt beweisen, dass ich in der Lage bin, ein vollständiges Backend aufzubauen – inklusive:
-
-* Verbindung zur MySQL-Datenbank via Docker
-* Endpunkte zur Datenverarbeitung (CRUD)
-* Validierung von Eingaben (Bean Validation)
-* Dokumentation & Versionsverwaltung über GitHub
-
-Ziel war es ausserdem, praktische Erfahrung mit Fehlersuche, Docker, Spring Boot und Testtools zu sammeln.
-
----
-
-## Technologien & Tools
-
-* **Java 21**
-* **Spring Boot** (Starter Web, Data JPA, Validation)
-* **MySQL 8 (Docker)**
-* **Docker Desktop + docker-compose**
-* **IntelliJ IDEA**
-* **Git + GitHub**
-* **Insomnia (zum Testen der REST-Endpunkte)**
+* Java 21
+* Spring Boot (REST API)
+* Maven
+* MySQL (via Docker Container)
+* Docker Compose
+* IntelliJ IDEA
+* GitHub
 
 ---
 
 ## Projektstruktur
 
-```bash
-car-garage/
-├── src/
-│   ├── main/
-│   │   ├── java/com/wiss/cargarage
-│   │   │   ├── controller
-│   │   │   ├── model
-│   │   │   └── repository
-│   │   └── resources/
-│   │       └── application.properties / data.sql
-│   └── test/
-│       └── java/... (Tests folgen noch)
-├── Dockerfile
+```plaintext
+car-garage
+├── src
+│   └── main
+│       ├── java
+│       │   └── ch.wiss.car_garage
+│       │       ├── controller
+│       │       ├── model
+│       │       ├── repository
+│       │       └── service
+│       └── resources
+│           └── application.properties
 ├── docker-compose.yml
+├── Dockerfile
 ├── pom.xml
 └── README.md
 ```
 
 ---
 
-## Installation & Ausführung
+## Funktionale Anforderungen
 
-> Voraussetzung: Docker Desktop installiert, Java 21, Git, Maven (lokal oder per IntelliJ)
+* Fahrzeuge erfassen, aktualisieren, löschen und auflisten
+* Service-Einträge einem Fahrzeug zuweisen
+* Datenbank-Anbindung via JPA/Hibernate
+* Fehlerbehandlung bei ungültigen Eingaben (Validation)
+* Automatisches Erstellen der Datenbanktabellen
 
-### Schritt 1 – Projekt klonen
+---
+
+## Meine Learnings und Erfahrungen
+
+Dieses Projekt war für mich in vielerlei Hinsicht eine echte Lernreise:
+
+### **Was ich gelernt habe:**
+
+* Wie man ein Spring Boot Projekt sauber strukturiert
+* Wie man REST-Controller, Services und Repositories trennt
+* Wie man Entities mit Beziehungen modelliert
+* Wie Docker & Docker Compose im Zusammenspiel mit Spring Boot funktionieren
+* Wie man das Projekt so aufbaut, dass es auch für andere lauffähig ist
+
+### **Womit ich zu kämpfen hatte:**
+
+* IntelliJ hat bei mir keinen `src/test/java`-Ordner angezeigt – ich musste diesen manuell anlegen
+* Docker hatte anfangs Build-Probleme, weil das `.jar` im falschen Pfad gesucht wurde
+* Git push scheiterte mehrmals an Berechtigungen, Merge-Konflikten oder IntelliJ-Warnungen
+* Ich war zeitweise extrem verwirrt von zu vielen parallelen Informationen (ADS lässt grüssen)
+
+Aber am Ende habe ich durchgehalten – und es **läuft!**
+
+---
+
+## (Geplante) Tests
+
+Die Unit Tests für die REST-Controller und Services wurden **noch nicht final implementiert**, sind aber geplant. Sie wären z.B. mit `@WebMvcTest` oder `@SpringBootTest` realisierbar.
+
+Einige Stolpersteine:
+
+* IntelliJ hat kein automatisches Testverzeichnis erstellt
+* Der Testaufbau hätte zusätzliche Zeit gekostet, die ich lieber in ein funktionierendes Hauptsystem gesteckt habe
+
+---
+
+## Setup & Installation
+
+### Voraussetzungen
+
+* Java 21
+* Docker Desktop installiert
+* IntelliJ IDEA Community oder Ultimate
+
+### Schritt-für-Schritt Anleitung (mit Docker Compose)
+
+1. Repository klonen:
 
 ```bash
 git clone https://github.com/Freshnezz/Lb-M295-Car-Garage.git
 cd Lb-M295-Car-Garage
 ```
 
-### Schritt 2 – Backend bauen
+2. Spring Boot `.jar` erstellen:
 
 ```bash
 ./mvnw clean package
 ```
 
-Dadurch wird im Verzeichnis `target/` eine `.jar`-Datei erstellt.
-
-### Schritt 3 – Docker starten
+3. Docker-Container starten:
 
 ```bash
 docker-compose up --build
 ```
 
-Dadurch wird:
+4. Backend ist nun unter erreichbar:
 
-* eine MySQL-DB mit Datenbank `cargarage` gestartet
-* die Spring Boot Anwendung im Container gebaut und gestartet
-
-### Schritt 4 – Anwendung testen
-
-Öffne z. B. Insomnia oder Postman und sende Anfragen an:
-
+```http
+http://localhost:8080
 ```
-http://localhost:8080/api/cars
-http://localhost:8080/api/service-entries
-```
+
+### Zugangsdaten zur Datenbank (Docker Compose `db` Service)
+
+* Host: `localhost`
+* Port: `3306`
+* DB: `cargarage`
+* User: `root`
+* Passwort: `Wiss2024`
+
+Diese Daten sind im `docker-compose.yml` sowie `application.properties` definiert.
 
 ---
 
-## Zugangsdaten & Datenbank
+## Datenmodell (vereinfacht)
 
-* **MySQL-Host:** `localhost` (Docker-intern: `db`)
-* **Port:** `3307` (gemappt auf `3306` im Container)
-* **Datenbank:** `cargarage`
-* **Benutzer:** `root`
-* **Passwort:** `Wiss2024`
+* `Car`
 
-In `application.properties` (bzw. in `docker-compose.yml`) sind alle Verbindungsdaten hinterlegt. Auch SQL-Initialdaten sind in `data.sql` gespeichert.
+  * id (Long)
+  * marke (String)
+  * modell (String)
+  * jahrgang (int)
+  * liste von ServiceEntry
 
----
+* `ServiceEntry`
 
-## Fehlerbehebung / Troubleshooting
-
-Während der Entwicklung sind mir folgende Fehler passiert:
-
-### ❌ Fehler: `COPY target/*.jar app.jar` → "no such file or directory"
-
-✅ Lösung: Vor dem Docker-Build muss mit `mvn clean package` das `.jar` gebaut werden.
-
-### ❌ Testpaket fehlt / kein `src/test/java`
-
-✅ Lösung: Ordnerstruktur manuell erstellen oder über IntelliJ Rechtsklick → New Directory → `src/test/java`.
-
-### ❌ `Cannot resolve symbol 'Mock'`, `@Test` etc.
-
-✅ Lösung: Fehlende Abhängigkeiten in `pom.xml` ergänzt (`junit`, `mockito`, `spring-boot-starter-test`).
-
-### ❌ Docker-Datenbank läuft, aber App findet sie nicht
-
-✅ Lösung: Ports & Umgebungsvariablen in `docker-compose.yml` korrekt setzen:
-
-```yml
-SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/cargarage
-```
+  * id (Long)
+  * beschreibung (String)
+  * datum (LocalDate)
+  * kosten (BigDecimal)
+  * Referenz zu Car (ManyToOne)
 
 ---
 
-## Reflexion & Learnings
+## Abschluss & Reflexion
 
-Dieses Projekt war für mich sehr intensiv. Am Anfang hatte ich keine Ahnung, wie man ein Backend mit Spring Boot strukturiert oder was Docker genau macht. Ich habe Stück für Stück gelernt, was Controller, Repositories und Entities machen, wie man mit Datenbanken verbindet, und wie man mit Tools wie Insomnia oder GitHub arbeitet.
+Ich habe bewusst ein eigenes, sauberes Backend gebaut, das auf Best Practices basiert und sich ohne externes Frontend bedienen lässt (z. B. mit Insomnia oder Postman). Das hat mir ermöglicht, **jede einzelne Komponente selbst zu erstellen, zu verstehen und anzupassen**.
 
-Ich hatte oft Probleme, z. B. mit dem Datenbankzugriff oder fehlenden Abhängigkeiten. Aber ich habe jedes Mal dazugelernt – auch durch gezielte Hilfe von ChatGPT.
-
-**Meine Learnings:**
-
-* Wie man ein Spring Boot Projekt von Grund auf aufbaut
-* Wie Docker und docker-compose funktionieren
-* Wie man eine MySQL-Datenbank einrichtet und verbindet
-* Wie man sauber dokumentiert und testet
-* Wie wichtig Versionskontrolle mit GitHub ist
-
-Ich bin stolz, dass ich das Projekt erfolgreich umsetzen konnte.
+Ich bin stolz, dass ich alles von der Datenbank bis zur REST-API mit Docker durchgezogen habe, auch wenn es Phasen gab, in denen ich dachte: "Was mache ich hier eigentlich?!" Aber genau da beginnt das echte Lernen.
 
 ---
 
-## GitHub
+## Kontakt
 
-Das gesamte Projekt ist öffentlich verfügbar unter:
+Falls jemand dieses Projekt anschauen, bewerten oder forken möchte:
+GitHub: [https://github.com/Freshnezz/Lb-M295-Car-Garage](https://github.com/Freshnezz/Lb-M295-Car-Garage)
 
-🔗 **[GitHub Repo](https://github.com/Freshnezz/Lb-M295-Car-Garage)**
-
-Bitte beachte: Änderungen im Code erfordern einen erneuten Build:
-
-```bash
-./mvnw clean package
-```
-
-und dann ein erneutes:
-
-```bash
-docker-compose up --build
-```
+Danke fürs Lesen 🙏 – und danke an ChatGPT, der mich bei den schlimmsten Fehlern nie ausgelacht hat ^^
 
 ---
 
-*Stand: 24. Juli 2025 – erstellt von Marc, Applikationsentwickler in Ausbildung (WISS Zürich)*
+**Marc**, angehender Applikationsentwickler EFZ – Quereinsteiger mit Herz, Humor und Lerneifer.
+
+---
+
+> Hinweis: Das Projekt wurde vollständig selbst entwickelt und dokumentiert. Hilfe gab es punktuell durch ChatGPT und den super Unterricht von G. Laveder 
