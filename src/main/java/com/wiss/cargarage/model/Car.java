@@ -46,6 +46,9 @@ public class Car {
         this.licensePlate = licensePlate;
     }
 
+    public Car(String bmw, String m3, int i) {
+    }
+
     // Getter und Setter
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
