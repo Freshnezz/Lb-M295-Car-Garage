@@ -75,14 +75,16 @@ Aber am Ende habe ich durchgehalten – und es **läuft!**
 
 ---
 
-## (Geplante) Tests
+## Tests (erstellt, aber fehlerhaft)
+Im späteren Verlauf habe ich erste Unit-Tests für die Modell- und Controllerklassen erstellt. Dabei lag der Fokus auf einfachen Validierungsprüfungen – zum Beispiel:
 
-Die Unit Tests für die REST-Controller und Services wurden **noch nicht final implementiert**, sind aber geplant. Sie wären z.B. mit `@WebMvcTest` oder `@SpringBootTest` realisierbar.
+Ein Car-Objekt mit leerem Modell sollte fehlschlagen.
 
-Einige Stolpersteine:
+Ein ServiceEntry mit gültigem Datum und Beschreibung sollte erfolgreich validiert werden.
 
-* IntelliJ hat kein automatisches Testverzeichnis erstellt
-* Der Testaufbau hätte zusätzliche Zeit gekostet, die ich lieber in ein funktionierendes Hauptsystem gesteckt habe
+Leider schlagen aktuell alle Tests fehl – aufgrund komplexer Konfigurations- oder Datenbankabhängigkeiten. Nach mehreren Fehlversuchen (Mocking, SpringBootTest, etc.) habe ich mich entschieden, die Punkteabzüge bewusst in Kauf zu nehmen, um das Projekt abzuschliessen und meine Energie auf das anstehende Praktikum zu konzentrieren.
+
+Ich habe aber dennoch den Test-Ordner mit sinnvollen Klassen und Szenarien erstellt, damit er nachvollziehbar vorhanden ist – das Backend funktioniert unabhängig davon korrekt.
 
 ---
 
